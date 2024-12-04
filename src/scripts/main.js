@@ -3,7 +3,7 @@
 const inputs = [...document.querySelectorAll('input')];
 
 inputs.forEach((input) => {
-  const parrent = input.closest('.field');
+  const parentElem = input.closest('.field');
   const newLabel = document.createElement('label');
 
   function capitalize(string) {
@@ -11,8 +11,15 @@ inputs.forEach((input) => {
   }
 
   newLabel.classList.add('field-label');
-  newLabel.setAttribute('for', input.getAttribute('id'));
-  newLabel.textContent = input.getAttribute('name');
-  input.setAttribute('placeholder', capitalize(input.getAttribute('name')));
-  parrent.append(newLabel);
+
+  if (input.getAttribute('id')) {
+    newLabel.setAttribute('for', input.getAttribute('id'));
+  }
+
+  if (input.getAttribute('name')) {
+    newLabel.textContent = input.getAttribute('name');
+    input.setAttribute('placeholder', capitalize(input.getAttribute('name')));
+  }
+
+  parentElem.append(newLabel);
 });
